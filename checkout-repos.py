@@ -5,23 +5,24 @@ import os
 from git import Git
 
 DEFAULT_BRANCH = "origin/master"
+YOCTO_RELEASE = "jethro"
 
 yocto = {
 	'base_url': "git://git.yoctoproject.org/",
 	'name': "poky",
-	'branch': DEFAULT_BRANCH
+	'branch': YOCTO_RELEASE
 }
 
 layers = [
 {
 	'base_url': "https://github.com/agherzan/",
 	'name': "meta-raspberrypi",
-	'branch': DEFAULT_BRANCH
+	'branch': YOCTO_RELEASE
 },
 {
 	'base_url': "https://github.com/openembedded/",
 	'name': "meta-openembedded",
-	'branch': DEFAULT_BRANCH
+	'branch': YOCTO_RELEASE
 },
 {
 	'base_url': "git@github.com:j-be/",
