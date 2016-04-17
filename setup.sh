@@ -14,6 +14,9 @@ function copyLayers() {
 }
 
 function copyConf() {
+	if [ ! -d $CONF_DIR ]; then
+		mkdir -p $CONF_DIR
+	fi
 	cp "$START_PATH/conf/$1" "$CONF_DIR"
 }
 
@@ -32,11 +35,10 @@ forcePython2
 python checkout-repos.py
 
 cd poky
-if [ ! -d $CONF_DIR ]; then
-	mkdir -p $CONF_DIR
-	copyLayers
-	copyConf "local.conf"
-fi
+
+copyLayers
+copyConf "local.conf"
+
 . ./oe-init-build-env
 
 
