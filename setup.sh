@@ -1,11 +1,15 @@
 #!/bin/sh
 
+START_PATH="`pwd`"
+POKY_BUILD_DIR="$START_PATH/poky/build"
+CONF_DIR="$POKY_BUILD_DIR/conf"
+
 PYTHON2_ENV="env-python2"
+
 IMAGE="image-vj-control-server"
-CONF_DIR="build/conf"
 BBLAYERS_FILE="bblayers.conf"
 
-START_PATH=`pwd`
+BUILD_DIR="/mnt/build-envs/rpi2/build/"
 
 function copyLayers() {
 	copyConf $BBLAYERS_FILE
@@ -28,12 +32,23 @@ function forcePython2() {
 	pip install --upgrade gitpython
 }
 
+function mountBuildEnv() {
+	echo
+	while [ $? -eq "0" ]
+	do
+		sudo umount "$POKY_BUILD_DIR"
+	done
+
+	sudo mount --bind "$BUILD_DIR" "$POKY_BUILD_DIR"
+}
+
 forcePython2
 
 python checkout-repos.py
 
-cd poky
+mountBuildEnv
 
+cd "$START_PATH/poky"
 copyLayers
 copyConf "local.conf"
 
