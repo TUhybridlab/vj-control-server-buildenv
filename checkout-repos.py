@@ -35,10 +35,10 @@ layers = [
 def cloneOrCheckout(base_path, repo):
 	git = Git()
 	repo_path = os.path.join(base_path, repo['name'])
-	print repo_path
+	print (repo_path)
 	try:
 		os.chdir(repo_path)
-	except OSError, e:
+	except OSError:
 		os.chdir(base_path)
 		git.clone(repo['base_url'] + repo['name'])
 		os.chdir(repo_path)
