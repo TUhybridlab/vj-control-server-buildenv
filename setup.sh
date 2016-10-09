@@ -42,6 +42,6 @@ copyConf "local.conf"
 
 if [ $# -eq 1 ]; then
 	if [ $1 = "build" ]; then
-		bitbake "$IMAGE"
+		nice bitbake "$IMAGE"
 	fi
 fi
