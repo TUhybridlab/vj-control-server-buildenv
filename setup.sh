@@ -1,7 +1,6 @@
 #!/bin/sh
 
 PYTHON2_ENV="env-python2"
-PYTHON_VERSION=`python -c "import sys; print(\"%i\" % sys.version_info[0])"`
 IMAGE="image-vj-control-server"
 CONF_DIR="build/conf"
 BBLAYERS_FILE="bblayers.conf"
@@ -21,13 +20,12 @@ function copyConf() {
 }
 
 function forcePython2() {
-	if [ $PYTHON_VERSION -ne "27" ]; then
-		if [ ! -d $PYTHON2_ENV ]; then
-			virtualenv2 $PYTHON2_ENV
-		fi
-		. $PYTHON2_ENV/bin/activate
-		pip install gitpython
+	if [ ! -d $PYTHON2_ENV ]; then
+		virtualenv2 $PYTHON2_ENV
 	fi
+	. $PYTHON2_ENV/bin/activate
+	pip install --upgrade pip
+	pip install --upgrade gitpython
 }
 
 forcePython2
