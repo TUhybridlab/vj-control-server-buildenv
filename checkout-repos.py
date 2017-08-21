@@ -5,7 +5,7 @@ import os
 from git import Git
 
 DEFAULT_BRANCH = "origin/master"
-YOCTO_RELEASE = "jethro"
+YOCTO_RELEASE = "pyro"
 
 yocto = {
 	'base_url': "git://git.yoctoproject.org/",
@@ -27,7 +27,7 @@ layers = [
 {
 	'base_url': "git@github.com:j-be/",
 	'name': "meta-vj",
-	'branch': DEFAULT_BRANCH
+	'branch': YOCTO_RELEASE
 }
 ]
 
