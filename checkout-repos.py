@@ -4,8 +4,8 @@ import os
 
 from git import Git
 
-DEFAULT_BRANCH = "origin/master"
-YOCTO_RELEASE = "pyro"
+DEFAULT_BRANCH = "master"
+YOCTO_RELEASE = "rocko"
 
 yocto = {
 	'base_url': "git://git.yoctoproject.org/",
@@ -27,7 +27,7 @@ layers = [
 {
 	'base_url': "git@github.com:j-be/",
 	'name': "meta-vj",
-	'branch': YOCTO_RELEASE
+	'branch': DEFAULT_BRANCH
 }
 ]
 
@@ -46,6 +46,7 @@ def cloneOrCheckout(base_path, repo):
 	finally:
 		git.fetch()
 		git.checkout(repo['branch'])
+		git.rebase()
 		os.chdir(base_path)
 
 
