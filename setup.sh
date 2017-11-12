@@ -1,15 +1,11 @@
 #!/bin/sh
 
 START_PATH="`pwd`"
-POKY_BUILD_DIR="$START_PATH/poky/build"
-CONF_DIR="$POKY_BUILD_DIR/conf"
+CONF_DIR="$START_PATH/poky/build/conf"
 
-PYTHON2_ENV="env-python2"
+YOCTO_RELEASE="rocko"
 
-IMAGE="image-vj-control-server"
 BBLAYERS_FILE="bblayers.conf"
-
-BUILD_DIR="/mnt/build-envs/rpi2/build/"
 
 function copyLayers() {
 	copyConf $BBLAYERS_FILE
@@ -32,31 +28,32 @@ function forcePython2() {
 	pip install --upgrade gitpython
 }
 
-function mountBuildEnv() {
-	echo
-	while [ $? -eq "0" ]
-	do
-		sudo umount "$POKY_BUILD_DIR"
-	done
+function checkoutRepo() {
+	local BASE_URL=$1
+	local REPO=$2
+	local BRANCH=$3
 
-	sudo mount --bind "$BUILD_DIR" "$POKY_BUILD_DIR"
+	if [ ! -d "$REPO" ]
+	then
+		git clone "$BASE_URL"'/'"$REPO"
+	fi
+	pushd "$REPO"
+	git fetch
+	git checkout "$BRANCH"
+	git stash
+	git rebase
+	git stash pop
+	popd
 }
 
-forcePython2
+checkoutRepo 'git://git.yoctoproject.org/' 'poky' "$YOCTO_RELEASE"
+cd 'poky'
 
-python checkout-repos.py
+checkoutRepo 'https://github.com/agherzan/' 'meta-raspberrypi' "$YOCTO_RELEASE"
+checkoutRepo 'https://github.com/openembedded/' 'meta-openembedded' "$YOCTO_RELEASE"
+checkoutRepo 'git@github.com:j-be/' 'meta-vj' 'master'
 
-mountBuildEnv
-
-cd "$START_PATH/poky"
 copyLayers
 copyConf "local.conf"
 
 . ./oe-init-build-env
-
-
-if [ $# -eq 1 ]; then
-	if [ $1 = "build" ]; then
-		nice bitbake "$IMAGE"
-	fi
-fi
