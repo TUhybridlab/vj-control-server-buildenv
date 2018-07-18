@@ -36,12 +36,8 @@ Currently the following flavors are available:
   [The Build Host Packages
   ](https://www.yoctoproject.org/docs/2.4.3/yocto-project-qs/yocto-project-qs.html#packages))
 1. Clone this repository and `cd` into it
-1. Source `setup.sh`
-
-  `source setup.sh`
-1. Build the desired image
-
-  `bitbake image-vj-<flavor>`
+1. Bootstrap the build environment: `source setup.sh`
+1. Build the desired image: `bitbake image-vj-<flavor>`
 1. The final SD-Card image can be found in
   `poky/build/tmp/deploy/images/raspberrypi2` as
   `image-vj-<flavor>-raspberrypi2-<timestamp>.rootfs.rpi-sdimg
