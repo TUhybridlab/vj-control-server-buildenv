@@ -40,5 +40,5 @@ Currently the following flavors are available:
 1. Build the desired image: `bitbake image-vj-<flavor>`
 1. The final SD-Card image can be found in
   `poky/build/tmp/deploy/images/raspberrypi2` as
-  `image-vj-<flavor>-raspberrypi2-<timestamp>.rootfs.rpi-sdimg
+  `image-vj-<flavor>-raspberrypi2-<timestamp>.rootfs.rpi-sdimg`
 1. If you need to build another flavor goto (4)
