@@ -3,7 +3,7 @@
 START_PATH="`pwd`"
 CONF_DIR="$START_PATH/poky/build/conf"
 
-YOCTO_RELEASE="rocko"
+YOCTO_RELEASE="sumo"
 
 BBLAYERS_FILE="bblayers.conf"
 
