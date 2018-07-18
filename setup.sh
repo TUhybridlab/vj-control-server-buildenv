@@ -19,15 +19,6 @@ function copyConf() {
 	cp "$START_PATH/conf/$1" "$CONF_DIR"
 }
 
-function forcePython2() {
-	if [ ! -d $PYTHON2_ENV ]; then
-		virtualenv2 $PYTHON2_ENV
-	fi
-	. $PYTHON2_ENV/bin/activate
-	pip install --upgrade pip
-	pip install --upgrade gitpython
-}
-
 function checkoutRepo() {
 	local BASE_URL=$1
 	local REPO=$2
