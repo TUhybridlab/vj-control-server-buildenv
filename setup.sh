@@ -38,9 +38,9 @@ function checkoutRepo() {
 		git clone "$BASE_URL"'/'"$REPO"
 	fi
 	pushd "$REPO"
+	git stash
 	git fetch
 	git checkout "$BRANCH"
-	git stash
 	git rebase
 	git stash pop
 	popd
